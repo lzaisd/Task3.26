@@ -64,29 +64,33 @@ public class Logic {
     public static boolean checkIfStructureIsCorrectRecursion(char[] str) throws Exception {
         checkIfArrIsEmpty(str);
 
-        return recursion(0, str, str.length) == 0;
+        return recursion(String.valueOf(str), 0) == str.length;
     }
 
-    private static int recursion(int firstNum, char[] str, int count) {
-        if (str.length == 1) {
+    private static int recursion(String sequence, int position) {
+        if (position >= sequence.length()) {
+            return position;
+        }
+
+        char bracket = sequence.charAt(position);
+
+        if (bracket == '(' || bracket == '[' || bracket == '{') {
+            int closeBracketPos = recursion(sequence, position + 1);
+            if (closeBracketPos == -1) {
+                return -1;
+            }
+
+            if (!checkIfBracketsMatch(String.valueOf(bracket), sequence.charAt(closeBracketPos))) {
+                return -1;
+            }
+            else {
+                return recursion(sequence, closeBracketPos + 1);
+            }
+        } else if (bracket == ')' || bracket == ']' || bracket == '}') {
+            return position;
+        } else {
             return -1;
         }
-
-        for (int i = firstNum + 1; i < str.length; i++) {
-            if (checkIfBracketsMatch(String.valueOf(str[firstNum]), str[i])) {
-                count -= 2;
-                str[i] = '-';
-                break;
-            }
-        }
-
-        firstNum += 1;
-
-        if (firstNum != str.length - 1 && firstNum != str.length - 1) {
-            count = recursion(firstNum, str, count);
-        }
-
-        return count;
     }
 
     private static void checkIfArrIsEmpty(char[] str) throws Exception {

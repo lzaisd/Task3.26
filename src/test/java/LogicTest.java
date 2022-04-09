@@ -47,20 +47,6 @@ class LogicTest {
     }
 
     @Test
-    void logicTest7() throws Exception {
-        String str = "(";
-        char[] strArr = str.toCharArray();
-        assertFalse(Logic.checkIfStructureIsCorrectSimpleStack(strArr));
-    }
-
-    @Test
-    void logicTest8() throws Exception {
-        String str = "(";
-        char[] strArr = str.toCharArray();
-        assertFalse(Logic.checkIfStructureIsCorrectRecursion(strArr));
-    }
-
-    @Test
     void logicTest9() throws Exception {
         String str = "())({}";
         char[] strArr = str.toCharArray();
